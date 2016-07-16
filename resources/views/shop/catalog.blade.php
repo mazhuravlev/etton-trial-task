@@ -1,5 +1,17 @@
 @extends('shop.layout')
 @section('content')
+    <style scoped>
+        .item {
+            margin-bottom: 2px;
+        }
+        .items {
+            padding-left: 20px;
+        }
+        .item-title {
+            display: inline-block;
+            width: 200px;
+        }
+    </style>
     <h1>Каталог товаров</h1>
     <div>
         <ul class="list-group">
@@ -17,16 +29,21 @@
     </div>
 
     <script id="itemTemplate" type="text/x-jsrender">
-        <div class="thumbnail">
-            <%:title%>
-            <form data-action="add_to_basket">
-                {!! csrf_field() !!}
-        <input name="quantity" type="number" min="1" step="1" value="1">
-        <input type="hidden" name="item_id" value="<%:id%>">
-        <button type="submit">в корзину</button>
-    </form>
-</div>
-
+        <div class="items">
+            <%for items%>
+                <div class="item">
+                    <form data-action="add_to_basket" class="form-inline">
+                        {!! csrf_field() !!}
+                        <div class="form-group">
+                            <span class="item-title"><%:title%></span>
+                            <input length="2" style="width: 60px;" class="form-control" name="quantity" type="number" min="1" step="1" value="1">
+                            <button class="btn btn-default" type="submit">в корзину</button>
+                        </div>
+                        <input type="hidden" name="item_id" value="<%:id%>">
+                    </form>
+                </div>
+            <%/for%>
+        </div>
     </script>
 
     <script>
@@ -49,12 +66,9 @@
                 if (node.data('loaded')) {
                     return;
                 }
-                $.getJSON('shop/item_type/' + e.target.dataset.itemTypeId + '/items', function (data) {
+                $.getJSON('shop/item_type/' + e.target.dataset.itemTypeId + '/items', function (items) {
                     node.data('loaded', true);
-                    var itemTemplate = $("#itemTemplate");
-                    node.after(data.map(function (item) {
-                        return itemTemplate.render(item);
-                    }));
+                    node.after($("#itemTemplate").render({items: items}));
                 });
             });
         })(jQuery);
