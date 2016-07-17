@@ -22,7 +22,8 @@ Route::group(
     ],
     function () {
         Route::get('', 'Shop\ShopController@catalog');
-        Route::get('orders', 'Shop\ShopController@orders');
+        Route::get('orders', 'Shop\OrderController@orders');
+        Route::get('orders/{order}', 'Shop\OrderController@showOrder');
         Route::get('basket', 'Shop\BasketController@index');
         Route::post('basket', 'Shop\BasketController@addToBasket');
         Route::post('basket/place_order', 'Shop\BasketController@placeOrder');
