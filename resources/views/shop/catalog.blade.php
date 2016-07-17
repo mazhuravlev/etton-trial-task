@@ -37,7 +37,9 @@
                         <div class="form-group">
                             <span class="item-title"><%:title%></span>
                             <input length="2" style="width: 60px;" class="form-control" name="quantity" type="number" min="1" step="1" value="1">
-                            <button class="btn btn-default" type="submit">в корзину</button>
+                            <button class="btn" type="submit">
+                                <span class="glyphicon glyphicon-plus"></span>
+                             </button>
                         </div>
                         <input type="hidden" name="item_id" value="<%:id%>">
                     </form>

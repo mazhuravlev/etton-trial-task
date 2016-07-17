@@ -23,13 +23,15 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th>Дата создания</th>
-                <th>Количество товаров</th>
+                <th></th>
+                <th class="text-center">Дата создания</th>
+                <th class="text-center">Количество товаров</th>
             </tr>
             <thead>
             <tbody>
                 <%for orders%>
                     <tr>
+                        <td class="text-center"><a href="/shop/orders/<%:id%>"><span class="glyphicon glyphicon-search"></span></a></td>
                         <td><%:created_at%></td>
                         <td><%:items_count%></td>
                     </tr>
